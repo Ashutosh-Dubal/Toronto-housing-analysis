@@ -1,5 +1,4 @@
 import csv
-
 from selenium import webdriver
 from selenium.common import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
@@ -89,7 +88,7 @@ driver.quit()
 
 
 # Save to CSV
-with open("toronto_housing_data.csv", "w", newline="", encoding="utf-8") as f:
+with open("../data/raw/toronto_housing_data.csv", "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=all_data[0].keys())
     writer.writeheader()
     writer.writerows(all_data)
