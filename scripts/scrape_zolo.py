@@ -6,13 +6,6 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import time
 
-def clean_detail(text):
-    """Cleans and converts price string to integer."""
-    text = text.strip().lower()
-    if text == '–' or text == '':
-        return None
-    return text.lower().replace('bed', '').replace('bath', '').replace('sqft', '')
-
 # Configure headless browser
 options = Options()
 options.add_argument("--headless")
@@ -31,8 +24,8 @@ def extract_listings_data(listings):
     try:
         address_elem = listings.select_one("a.address")
         address = address_elem.text.strip() if address_elem else None
-        if not address:
-            return None  # Skip listings with no address
+        # if not address:
+        #     return None  # Skip listings with no address
 
         # Price
         price_elem = listings.select_one("li.price span[itemprop='price']")
@@ -40,9 +33,9 @@ def extract_listings_data(listings):
 
         # Details
         details = listings.select('ul.card-listing--values li')
-        beds = clean_detail(details[1].text) if len(details) > 1 else None
-        baths = clean_detail(details[2].text) if len(details) > 2 else None
-        sqft = clean_detail(details[3].text) if len(details) > 3 else None
+        beds = details[1].text.strip() if len(details) > 1 else None
+        baths = details[2].text.strip() if len(details) > 2 else None
+        sqft = details[3].text.strip() if len(details) > 3 else None
 
         return {
             "address": address,
@@ -88,7 +81,7 @@ driver.quit()
 
 
 # Save to CSV
-with open("../data/raw/toronto_housing_data.csv", "w", newline="", encoding="utf-8") as f:
+with open("../Housing_Price_Analysis/data/raw/toronto_housing_data.csv", "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(f, fieldnames=all_data[0].keys())
     writer.writeheader()
     writer.writerows(all_data)
