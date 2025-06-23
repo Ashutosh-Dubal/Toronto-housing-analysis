@@ -2,13 +2,6 @@ import numpy as np
 import pandas as pd
 import re
 
-def clean_detail(text):
-    """Cleans and converts price string to integer."""
-    text = text.strip().lower()
-    if text == '–' or text == '':
-        return None
-    return text.lower().replace('bed', '').replace('bath', '').replace('sqft', '')
-
 def convert_mixed_number(value):
     if pd.isna(value):
         return np.nan
