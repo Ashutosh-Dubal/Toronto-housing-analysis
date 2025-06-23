@@ -9,16 +9,16 @@ Tools used include Selenium for web scraping, Pandas for data cleaning and trans
 ----
 
 ## 📚 Table of Contents
-1. [Dataset Description](#dataset-description)
-2. [Challenges & Learnings](#challenges--learnings)
-3. [How to Install and Run the Project](#how-to-install-and-run-the-project)
-4. [How to Use the Project](#how-to-use-the-project)
-5. [Sample Output](#sample-output)
-6. [Key Insights & Analysis](#key-insights--analysis)
-7. [Tech Stack](#tech-stack)
-8. [Project Structure](#project-structure)
-9. [Author](#author)
-10. [License](#license)
+1. [Dataset Description](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-dataset-description)
+2. [Challenges & Learnings](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-challenges--learnings)
+3. [How to Install and Run the Project](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#%EF%B8%8F-how-to-install-and-run-the-project)
+4. [How to Use the Project](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-how-to-use-this-project)
+5. [Sample Output](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-sample-output)
+6. [Key Insights & Analysis](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#key-insights--analysis)
+7. [Tech Stack](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-tech-stack)
+8. [Project Structure](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-project-structure)
+9. [Author](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-author)
+10. [License](https://github.com/Ashutosh-Dubal/Toronto-housing-analysis?tab=readme-ov-file#-license)
 
 ---
 
@@ -251,65 +251,3 @@ Ashutosh Dubal
 
 This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
----
-
-## 🔍 Summary Table
-
-|Feature|Correlation to Price|Trend Type|Notes|
-|---|---|---|---|
-|CleanedSqft|**0.80**|Exponential|Strongest driver|
-|TotalBaths|0.71|Steep then flat|Diminishing returns after 9|
-|TotalBeds|0.54|Linear to plateau|Weakens after 8 beds|
-
----
-
-## 📊 Key Insights from the Exploratory Data Analysis
-
-Here’s what we discovered from analyzing Toronto housing data:
-### 💵 Price Drivers
-
-- 🏠 Square Footage is the Strongest Predictor of Price
-    
-    - CleanedSqft has the **highest correlation** with price (r = 0.80).
-    
-    - The price increases **non-linearly** with size — suggesting a near-exponential relationship.
-    
-    - Larger homes are rarer (e.g., 4000+ sqft), which inflates average prices at the upper end.
-    
-- 🛁 Bathrooms Correlate with Price More than Bedrooms
-    
-    - TotalBaths and price have a **strong positive correlation** (r = 0.71), higher than TotalBeds (r = 0.54).
-    
-    - This could reflect the influence of **guest or luxury bathrooms** that add more value than extra bedrooms alone.
-    
-- 🛏️ Bedrooms Show Moderate Impact
-    
-    - The price trend plateaus after 5+ bedrooms — indicating **diminishing returns**.
-    
-    - Few listings have more than 7–8 bedrooms, making data sparse and less reliable at that scale.
-
-### 🔍 Distribution & Outliers
-
-- **Outliers in sqft and price** were visualized and managed using rolling averages.
-- Most listings fall between **500–1500 sqft**, with very few homes above 3000 sqft.
-
-### 🔄 Rolling Average Observations
-
-- Rolling averages smooth out price fluctuations and **highlight consistent trends**:
-    - **Price steadily increases** with more sqft.
-    - Bathrooms show a clearer rolling trend than bedrooms, again supporting their stronger influence on price.
-
-
-### 🔗 Feature Interrelationships
-
-- High correlations between TotalBaths, TotalBeds, and CleanedSqft suggest potential **multicollinearity** — worth addressing if building a regression model.
-
----
-
-## 🚀 Next Steps
-
-- Add geographic/region-level features
-- Introduce ML models for price prediction
-- Build dashboard for interactive insights
-
----
