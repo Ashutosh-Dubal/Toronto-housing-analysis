@@ -157,24 +157,24 @@ You can explore or extend the analysis by modifying `EDA.py` to add your own plo
 
 ### Average Price by no. of Bedroom
 
-![[Avg price by no. of bedroom.png]]
+![Avg price by no. of bedroom](eda_outputs/avg_price_by_totalbeds.png)
 
 This bar chart shows how average home prices change based on the number of bedrooms. Prices generally increase with bedroom count, but fewer data points for homes with more than 6 bedrooms reduce reliability at the high end.
 
 ### Rolling Average Price by SQFT
 
-![[Rolling avg price by sqft.png]]
+![Rolling avg price by sqft](eda_outputs/rolling_avg_price_by_sqft.png)
 
 This line plot reveals that housing price increases almost exponentially with square footage. The rolling average removes short-term variability and emphasizes the strong, consistent upward trend.
 
 ### Correlation HeatMap
 
-![[Heatmap.png]]
+![Correlation Heatmap](eda_outputs/correlation_heatmap.png)
 
 This heatmap quantifies how strongly features like bedrooms, bathrooms, and square footage are correlated with price. Square footage shows the strongest correlation (≈0.80), while bedrooms have a more modest relationship (≈0.54).
 ### PairPlot of Key Features
 
-![[Pairplot of Key Features.png]]
+![Pairplot of Key Features](eda_outputs/pairplot_features.png)
 
 A pairwise comparison of the main numerical variables — price, bedrooms, bathrooms, and square footage. The diagonal shows distributions, and off-diagonal plots show potential correlations, such as a clear upward trend between square footage and price.
 
@@ -206,36 +206,62 @@ Finally, we found that homes with more than **8 bedrooms or 3500+ sqft** were ex
 ## 📂 Project Structure
 
 toronto-housing-analysis/
-│
 ├── data/                                       # Raw and cleaned CSV files
+
 │   ├── raw/                                     # Raw scraped data
+
 │   │   └── toronto_raw.csv
+
 │   └── cleaned/                             # Cleaned datasets
+
 │       └── toronto_cleaned.csv
+
 │
+
 ├── scripts/                                   # Python scripts for tasks
+
 │   ├── scrape_zolo.py                 # Web scraping logic (Selenium)
+
 │   ├── clean_data.py                   # Cleaning and preprocessing
+
 │   └── EDA.py                               # Exploratory Data Analysis
+
 │
 ├── utils/                                       # Helper functions if needed
+
 │   └── parsing_helpers.py         # (e.g., price, bed/bath cleaners)
+
 │
-├── Graphs/
-│   ├── boxplot of price.png
-│   ├── Log-Trans price distribution.png
-│   ├── price v TotalBeds scartter plots.png
+├── eda Outputs/
+
+│   ├── sqft range distribution.csv
+
+│   ├── summary stats.json
+
+│   ├── Log price distribution.png
+
+│   ├── price v TotalBeds.png
+
 │   ├── Pairplot of Key Features.png
-│   ├── Heatmap.png
-│   ├── boxplot of price(log).png
-│   ├── Avg price by no. of bedroom.png
-│   ├── Avg price by no. of bathroom.png
+
+│   ├── Correlation Heatmap.png
+
+│   ├── Avg price by bedroom.png
+
+│   ├── Avg price by bathroom.png
+
 │   ├── Avg price by sqft.png
+
 │   ├── Rolling avg price by sqft.png
+
 │   ├── Rolling avg price by beds.png
+
 │   └── Rolling avg price by baths.png
-├── .gitignore                     
-├── README.md                      
+
+├── .gitignore        
+
+├── README.md       
+
 └── requirements.txt               
 
 ---
