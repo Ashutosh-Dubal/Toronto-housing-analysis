@@ -27,7 +27,7 @@ with open(output_dir / 'summary_stats.json', 'w') as f:
     json.dump(summary_stats, f, indent=2)
 
 # --- Correlation ---
-features = ['price', 'TotalBeds', 'TotalBaths', 'CleanedSqft']
+features = ['price', 'TotalBeds', 'TotalBaths', 'CleanedSqft', 'full_bed', 'half_bed']
 corr_matrix = df[features].corr()
 df['log_price'] = np.log1p(df['price'])
 
@@ -104,4 +104,3 @@ df['sqft_range'] = pd.cut(df['CleanedSqft'], bins=sqft_bins, labels=sqft_labels)
 
 range_counts = df['sqft_range'].value_counts().sort_index()
 range_counts.to_csv(output_dir / 'sqft_range_distribution.csv')
-

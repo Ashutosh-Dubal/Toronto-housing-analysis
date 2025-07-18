@@ -6,14 +6,14 @@ from pathlib import Path
 import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from utils.helpers import convert_mixed_number, parse_sqft_range
+from utils.helpers import convert_mixed_number, parse_sqft_range, extract_full_and_half
 
 # Setup logging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 # --- Configurable paths ---
-RAW_DATA_PATH = Path("../Housing_Price_Analysis/data/raw/toronto_housing_data.csv")
-CLEAN_DATA_PATH = Path("../Housing_Price_Analysis/data/clean/toronto_housing_data.csv")
+RAW_DATA_PATH = Path("data/raw/toronto_housing_data.csv")
+CLEAN_DATA_PATH = Path("data/clean/toronto_housing_data.csv")
 
 # --- Validation Functions ---
 def is_valid_beds(val):
@@ -70,6 +70,7 @@ def main():
     df['TotalBeds'] = df['beds'].apply(convert_mixed_number)
     df['TotalBaths'] = df['baths'].apply(convert_mixed_number)
     df['CleanedSqft'] = df['sqft'].apply(parse_sqft_range)
+    df[['full_bed', 'half_bed']] = df['beds'].apply(lambda x: pd.Series(extract_full_and_half(x)))
 
     # --- Final Cleaning ---
     df.drop_duplicates(inplace=True)

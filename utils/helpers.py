@@ -2,6 +2,22 @@ import numpy as np
 import pandas as pd
 import re
 
+def extract_full_and_half(value):
+    if pd.isna(value):
+        return np.nan, np.nan
+    try:
+        value = value.strip()
+        if '+' in value:
+            parts = value.split('+')
+            full = int(parts[0].strip()) if parts[0].strip().isdigit() else 0
+            half = int(parts[1].strip()) if len(parts) > 1 and parts[1].strip().isdigit() else 0
+            return full, half
+        else:
+            return int(value), 0
+    except ValueError:
+        return np.nan, np.nan
+
+
 def convert_mixed_number(value):
     if pd.isna(value):
         return np.nan
