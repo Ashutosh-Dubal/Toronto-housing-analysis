@@ -179,7 +179,7 @@ This heatmap quantifies how strongly features like bedrooms, bathrooms, and squa
 A pairwise comparison of the main numerical variables — price, bedrooms, bathrooms, and square footage. The diagonal shows distributions, and off-diagonal plots show potential correlations, such as a clear upward trend between square footage and price.
 
 ---
-## 👁 Key Insights & Analysis
+## 👁 Key Insights & Analysis
 
 The journey into Toronto’s housing market revealed several compelling patterns and a few surprises along the way.
 
@@ -187,7 +187,7 @@ One of the **most striking trends** is the strong relationship between square fo
 
 On the other hand, the relationship between **bedrooms and price** wasn’t as strong as we initially assumed. The correlation coefficient hovered around **0.54**, a moderate value. This made sense upon deeper reflection — a one-bedroom condo downtown can easily outprice a multi-bedroom house in the suburbs. **Location**, rather than just bed count, likely plays a major role here.
 
-**Bathrooms**, interestingly, showed a **higher correlation with price** (**0.71**) than bedrooms did. This might be because additional bathrooms — such as powder rooms or guest baths — often signify higher-end layouts and greater comfort, adding more value per square foot than just another bedroom.
+**Bathrooms**, interestingly, showed a **higher correlation with price** (**0.71**) than bedrooms did. This might be because additional bathrooms — such as powder rooms or guest baths — often signify higher-end layouts and greater comfort, adding more value per square foot than just another bedroom. Moreover, from a construction standpoint, bathrooms are significantly more expensive to build due to plumbing, fixtures, waterproofing, and finishing requirements. This could help explain why homes with more bathrooms tend to command a higher price — they reflect both greater functionality and higher investment.
 
 Another powerful variable was **CleanedSqft (square footage)**, with a correlation of **0.79** with price — the strongest of all the features examined. When combined with bathrooms (0.86 correlation with sqft), it’s clear that size and comfort together form the foundation of housing prices in Toronto.
 
@@ -205,64 +205,39 @@ Finally, we found that homes with more than **8 bedrooms or 3500+ sqft** were ex
 ---
 ## 📂 Project Structure
 
+```
 toronto-housing-analysis/
 ├── data/                                       # Raw and cleaned CSV files
-
 │   ├── raw/                                     # Raw scraped data
-
 │   │   └── toronto_raw.csv
-
 │   └── cleaned/                             # Cleaned datasets
-
 │       └── toronto_cleaned.csv
-
 │
-
 ├── scripts/                                   # Python scripts for tasks
-
 │   ├── scrape_zolo.py                 # Web scraping logic (Selenium)
-
 │   ├── clean_data.py                   # Cleaning and preprocessing
-
 │   └── EDA.py                               # Exploratory Data Analysis
-
 │
 ├── utils/                                       # Helper functions if needed
-
 │   └── parsing_helpers.py         # (e.g., price, bed/bath cleaners)
-
 │
 ├── eda Outputs/
-
 │   ├── sqft range distribution.csv
-
 │   ├── summary stats.json
-
 │   ├── Log price distribution.png
-
 │   ├── price v TotalBeds.png
-
 │   ├── Pairplot of Key Features.png
-
 │   ├── Correlation Heatmap.png
-
 │   ├── Avg price by bedroom.png
-
 │   ├── Avg price by bathroom.png
-
 │   ├── Avg price by sqft.png
-
 │   ├── Rolling avg price by sqft.png
-
 │   ├── Rolling avg price by beds.png
-
 │   └── Rolling avg price by baths.png
-
 ├── .gitignore        
-
 ├── README.md       
-
 └── requirements.txt               
+```
 
 ---
 
