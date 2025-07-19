@@ -28,17 +28,18 @@ The dataset used in this project was **scraped from** [**Zolo.ca**](https://www.
 
 ### ✅ Key Features Collected:
 
-| **Feature**   | **Description**                                                         |
-| ------------- | ----------------------------------------------------------------------- |
-| Price         | Listing price of the property (in CAD)                                  |
-| Location      | Address or neighborhood of the property                                 |
-| TotalBeds     | Total number of bedrooms (including main and additional sleeping areas) |
-| TotalBaths    | Total number of bathrooms (including full and half baths)               |
-| CleanedSqft   | Square footage of the property (converted to a single average value)    |
-| BuildingType  | Type of home (e.g., detached, condo, townhouse)                         |
-| Storeys       | Number of floors in the property                                        |
-| AgeOfBuilding | Approximate age of the property (where available)                       |
-|               |                                                                         |
+| **Feature**   | **Description**                                                             |
+| ------------- | --------------------------------------------------------------------------- |
+| `Price`         | Listing price of the property (in CAD)                                    |
+| `Location`      | Address or neighborhood of the property                                   |
+| `TotalBeds`     | Total number of bedrooms (including main and additional sleeping areas)   |
+| `TotalBaths`    | Total number of bathrooms (including full and half baths)                 |
+| `CleanedSqft`   | Square footage of the property (converted to a single average value)      |
+| `Beds`          | Number of beds scraped from Zolo, often in the format `n+m` (e.g., 2+1).  |
+| `Baths`         | Number of bathrooms scraped from Zolo, may include formats like `1+1`.    |
+| `full_bed`      | Extracted full (primary) bedrooms from the `Beds` column.                 |
+| `half_bed`      | Extracted additional rooms (like dens) from the `Beds` column.            |
+
 ### 🧹 After Cleaning:
 
 - ✅ **Original Entries:** 13,695
@@ -130,7 +131,7 @@ This will output a cleaned dataset to: data/clean/toronto_housing_data.csv.
 
 c. Perform exploratory data analysis
 
-```
+```bash
 python scripts/EDA.py
 ```
 
@@ -183,23 +184,25 @@ A pairwise comparison of the main numerical variables — price, bedrooms, bathr
 
 The journey into Toronto’s housing market revealed several compelling patterns and a few surprises along the way.
 
-One of the **most striking trends** is the strong relationship between square footage and price. As expected, homes with larger living areas tended to command higher prices — and this wasn’t just a linear climb. The pattern resembled **exponential growth**, particularly as properties exceeded 2000 square feet. However, the data also showed that homes with square footage over 3500 were quite rare, and the scarcity of these listings may explain some of the sharp jumps in price.
+One of the most striking trends is the strong relationship between square footage and price. As expected, homes with larger living areas tended to command higher prices — and this wasn’t just a linear climb. The pattern resembled exponential growth, particularly as properties exceeded 2000 square feet. However, the data also showed that homes with square footage over 3500 were quite rare, and the scarcity of these listings may explain some of the sharp jumps in price.
 
-On the other hand, the relationship between **bedrooms and price** wasn’t as strong as we initially assumed. The correlation coefficient hovered around **0.54**, a moderate value. This made sense upon deeper reflection — a one-bedroom condo downtown can easily outprice a multi-bedroom house in the suburbs. **Location**, rather than just bed count, likely plays a major role here.
+On the other hand, the relationship between bedrooms and price wasn’t as strong as we initially assumed. The correlation coefficient hovered around 0.54, a moderate value. This made sense upon deeper reflection — a one-bedroom condo downtown can easily outprice a multi-bedroom house in the suburbs. Location, rather than just bed count, likely plays a major role here.
 
-**Bathrooms**, interestingly, showed a **higher correlation with price** (**0.71**) than bedrooms did. This might be because additional bathrooms — such as powder rooms or guest baths — often signify higher-end layouts and greater comfort, adding more value per square foot than just another bedroom. Moreover, from a construction standpoint, bathrooms are significantly more expensive to build due to plumbing, fixtures, waterproofing, and finishing requirements. This could help explain why homes with more bathrooms tend to command a higher price — they reflect both greater functionality and higher investment.
+Bathrooms, interestingly, showed a higher correlation with price (0.71) than bedrooms did. This might be because additional bathrooms — such as powder rooms or guest baths — often signify higher-end layouts and greater comfort, adding more value per square foot than just another bedroom. Moreover, from a construction standpoint, bathrooms are significantly more expensive to build due to plumbing, fixtures, waterproofing, and finishing requirements. This could help explain why homes with more bathrooms tend to command a higher price — they reflect both greater functionality and higher investment.
 
-Another powerful variable was **CleanedSqft (square footage)**, with a correlation of **0.79** with price — the strongest of all the features examined. When combined with bathrooms (0.86 correlation with sqft), it’s clear that size and comfort together form the foundation of housing prices in Toronto.
+Another powerful variable was CleanedSqft (square footage), with a correlation of 0.79 with price — the strongest of all the features examined. When combined with bathrooms (0.86 correlation with sqft), it’s clear that size and comfort together form the foundation of housing prices in Toronto.
 
-From a **distribution standpoint**, most homes were priced in the **$500K–$1M range**, and the market was heavily skewed toward these lower price brackets. This skew impacted certain visualizations, such as boxplots, which became less helpful due to their sensitivity to outliers. Instead, **log transformations and rolling averages** offered better clarity, smoothing extreme values and revealing true trends in the data.
+With the introduction of the full_bed and half_bed variables — extracted from the original Beds column — we were able to examine bed count with more granularity. Interestingly, from the heatmap we observed that full_bed showed stronger correlations with most variables (including price and square footage) than the original TotalBeds. While the strong correlation between TotalBeds and full_bed is expected since both are derived from the same source, full_bed appears to be a more reliable standalone predictor. If one were to build a predictive model using only these variables, full_bed would likely outperform TotalBeds in explaining price variation, as it isolates the actual usable bedrooms more precisely.
 
-Finally, we found that homes with more than **8 bedrooms or 3500+ sqft** were extremely rare, which suggests a natural ceiling in the residential market — likely driven by both affordability and zoning constraints. Rolling averages made this especially clear by flattening the trend lines at the high end, where data points were too sparse to draw reliable conclusions.
+From a distribution standpoint, most homes were priced in the $500K–$1M range, and the market was heavily skewed toward these lower price brackets. This skew impacted certain visualizations, such as boxplots, which became less helpful due to their sensitivity to outliers. Instead, log transformations and rolling averages offered better clarity, smoothing extreme values and revealing true trends in the data.
+
+Finally, we found that homes with more than 8 bedrooms or 3500+ sqft were extremely rare, which suggests a natural ceiling in the residential market — likely driven by both affordability and zoning constraints. Rolling averages made this especially clear by flattening the trend lines at the high end, where data points were too sparse to draw reliable conclusions.
 
 --- 
 
 ## 🔧 Tech Stack
 
-- **Python** (Pandas, Seaborn, Matplotlib, NumPy)
+- **Python** (Pandas, Seaborn, Matplotlib, NumPy)
 - **Web Scraping**: Selenium (Zolo.ca)
 
 ---
